@@ -19,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -35,8 +37,11 @@ public class DataSeeder implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) {
+        // Always ensure all categories exist (runs on every startup)
+        seedCategories();
+
         if (itemRepository.count() > 0) {
-            log.info("Database already contains data — skipping seed.");
+            log.info("Database already contains data — skipping item/user seed.");
             return;
         }
 
@@ -49,20 +54,19 @@ public class DataSeeder implements ApplicationRunner {
 
         // ── Users ────────────────────────────────────────────────
         createUser("Admin",   "ShopSphere", "admin@shopsphere.com",  "Admin1234!",  adminRole);
-        User seller = createUser("Alex",    "Carter",    "seller@shopsphere.com", "Seller1234!", sellerRole);
+        User seller = createUser("Alex", "Carter", "seller@shopsphere.com", "Seller1234!", sellerRole);
         createUser("Sarah", "Johnson",  "buyer@shopsphere.com",  "Buyer1234!",  userRole);
 
-        // ── Categories ───────────────────────────────────────────
-        Category electronics = getOrCreateCategory("Electronics",   "Gadgets, devices, and accessories");
-        Category clothing    = getOrCreateCategory("Clothing",      "Fashion, apparel, and accessories");
-        Category books       = getOrCreateCategory("Books",         "Books, guides, and literature");
-        Category homeGarden  = getOrCreateCategory("Home & Garden", "Home improvement and garden supplies");
-        Category sports      = getOrCreateCategory("Sports",        "Sports, fitness, and outdoors");
-        Category beauty      = getOrCreateCategory("Beauty",        "Skincare, haircare, and personal care");
-        Category toys        = getOrCreateCategory("Toys",          "Toys and games for all ages");
-        Category food        = getOrCreateCategory("Food",          "Snacks, pantry staples, and specialty foods");
-
         // ── Items ────────────────────────────────────────────────
+        Category electronics = getOrCreateCategory("Electronics",        "Gadgets, devices, and accessories");
+        Category clothing    = getOrCreateCategory("Clothing",           "Fashion, apparel, and accessories");
+        Category books       = getOrCreateCategory("Books",              "Books, guides, and literature");
+        Category homeGarden  = getOrCreateCategory("Home & Garden",      "Home improvement and garden supplies");
+        Category sports      = getOrCreateCategory("Sports",             "Sports, fitness, and outdoors");
+        Category beauty      = getOrCreateCategory("Beauty",             "Skincare, haircare, and personal care");
+        Category toys        = getOrCreateCategory("Toys",               "Toys and games for all ages");
+        Category food        = getOrCreateCategory("Food",               "Snacks, pantry staples, and specialty foods");
+
         List<Item> items = List.of(
 
             // Electronics (5)
@@ -176,6 +180,32 @@ public class DataSeeder implements ApplicationRunner {
         log.info("  admin@shopsphere.com  / Admin1234!  (ADMIN)");
         log.info("  seller@shopsphere.com / Seller1234! (SELLER)");
         log.info("  buyer@shopsphere.com  / Buyer1234!  (USER)");
+    }
+
+    // ── Category seeding (runs on every startup) ─────────────────
+
+    private void seedCategories() {
+        Map<String, String> all = new LinkedHashMap<>();
+        all.put("Electronics",          "Gadgets, devices, and accessories");
+        all.put("Clothing",             "Fashion, apparel, and accessories");
+        all.put("Books",                "Books, guides, and literature");
+        all.put("Home & Garden",        "Home improvement and garden supplies");
+        all.put("Sports",               "Sports, fitness, and outdoors");
+        all.put("Beauty",               "Skincare, haircare, and personal care");
+        all.put("Toys",                 "Toys and games for all ages");
+        all.put("Food",                 "Snacks, pantry staples, and specialty foods");
+        all.put("Health & Wellness",    "Vitamins, supplements, and wellness products");
+        all.put("Automotive",           "Car accessories, tools, and maintenance products");
+        all.put("Pet Supplies",         "Food, toys, and accessories for pets");
+        all.put("Office & Stationery",  "Desk supplies, notebooks, and office equipment");
+        all.put("Jewelry & Accessories","Rings, necklaces, bracelets, and watches");
+        all.put("Baby & Kids",          "Clothing, toys, and essentials for children");
+        all.put("Tools & Hardware",     "Power tools, hand tools, and building supplies");
+        all.put("Art & Crafts",         "Painting, drawing, and DIY craft supplies");
+        all.put("Travel & Luggage",     "Bags, suitcases, and travel accessories");
+        all.put("Musical Instruments",  "Guitars, keyboards, drums, and accessories");
+        all.forEach(this::getOrCreateCategory);
+        log.info("✅ {} categories ready.", categoryRepository.count());
     }
 
     // ── Helpers ──────────────────────────────────────────────────

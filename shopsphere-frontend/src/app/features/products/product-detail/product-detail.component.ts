@@ -6,6 +6,7 @@ import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Item, Feedback, FeedbackRequest } from '../../../core/models';
+import { getProductImage } from '../../../core/utils/product-images';
 
 @Component({
   selector: 'app-product-detail',
@@ -44,8 +45,13 @@ import { Item, Feedback, FeedbackRequest } from '../../../core/models';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
           <!-- Image -->
           <div>
-            <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center">
-              <span class="text-9xl">🛍️</span>
+            <div class="aspect-square rounded-2xl overflow-hidden bg-gray-100">
+              <img
+                [src]="getImg(product()!)"
+                [alt]="product()!.name"
+                class="w-full h-full object-cover"
+                (error)="onImgError($event)"
+              />
             </div>
           </div>
 
@@ -189,6 +195,11 @@ export class ProductDetailComponent implements OnInit {
 
   decQty() { if (this.qty > 1) this.qty--; }
   incQty() { const p = this.product(); if (p && this.qty < p.quantity) this.qty++; }
+  getImg(product: Item): string { return getProductImage(product); }
+  onImgError(event: Event) {
+    (event.target as HTMLImageElement).src =
+      'https://images.unsplash.com/photo-1607082349566-187342175e2f?w=600&h=600&fit=crop&auto=format';
+  }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));

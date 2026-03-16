@@ -28,14 +28,24 @@ const PRODUCT_IMAGES: Record<string, string> = {
 };
 
 export const CATEGORY_IMAGES: Record<string, string> = {
-  'Electronics': 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&h=280&fit=crop&auto=format',
-  'Clothing': 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=280&fit=crop&auto=format',
-  'Books': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=280&fit=crop&auto=format',
-  'Home & Garden': 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=280&fit=crop&auto=format',
-  'Sports': 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=280&fit=crop&auto=format',
-  'Beauty': 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=280&fit=crop&auto=format',
-  'Toys': 'https://images.unsplash.com/photo-1558877385-81a1c7e67d72?w=400&h=280&fit=crop&auto=format',
-  'Food': 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=280&fit=crop&auto=format',
+  'Electronics':           'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&h=280&fit=crop&auto=format',
+  'Clothing':              'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=280&fit=crop&auto=format',
+  'Books':                 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=280&fit=crop&auto=format',
+  'Home & Garden':         'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=280&fit=crop&auto=format',
+  'Sports':                'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=280&fit=crop&auto=format',
+  'Beauty':                'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=280&fit=crop&auto=format',
+  'Toys':                  'https://images.unsplash.com/photo-1558877385-81a1c7e67d72?w=400&h=280&fit=crop&auto=format',
+  'Food':                  'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=280&fit=crop&auto=format',
+  'Health & Wellness':     'https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=400&h=280&fit=crop&auto=format',
+  'Automotive':            'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&h=280&fit=crop&auto=format',
+  'Pet Supplies':          'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&h=280&fit=crop&auto=format',
+  'Office & Stationery':   'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=280&fit=crop&auto=format',
+  'Jewelry & Accessories': 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=280&fit=crop&auto=format',
+  'Baby & Kids':           'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400&h=280&fit=crop&auto=format',
+  'Tools & Hardware':      'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=280&fit=crop&auto=format',
+  'Art & Crafts':          'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=280&fit=crop&auto=format',
+  'Travel & Luggage':      'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=280&fit=crop&auto=format',
+  'Musical Instruments':   'https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=400&h=280&fit=crop&auto=format',
 };
 
 export function getProductImage(product: Item): string {
