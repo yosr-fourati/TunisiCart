@@ -111,17 +111,20 @@ public class AdminService {
         int newUsers = (int) userRepository.findByRegistrationDateAfter(LocalDate.now().minusWeeks(1)).size();
 
         long totalOrders = orderRepository.count();
-        double totalSales = orderRepository.sumTotalAmount();
+        Double rawSales = orderRepository.sumTotalAmount();
+        double totalSales = rawSales != null ? rawSales : 0.0;
         double averageOrderValue = totalOrders > 0 ? totalSales / totalOrders : 0;
-        Map<String, Long> orderStatusCount = orderRepository.countOrdersByStatus();
 
-        // Remove null keys
-        Map<String, Long> cleanedOrderStatusCount = orderStatusCount.entrySet().stream()
-                .filter(entry -> entry.getKey() != null)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        List<Object[]> statusRows = orderRepository.countOrdersByStatus();
+        Map<String, Long> cleanedOrderStatusCount = statusRows.stream()
+                .filter(row -> row[0] != null)
+                .collect(Collectors.toMap(
+                        row -> row[0].toString(),
+                        row -> ((Number) row[1]).longValue()
+                ));
 
-
-        double averageRating = feedbackRepository.findAverageRating();
+        Double rawRating = feedbackRepository.findAverageRating();
+        double averageRating = rawRating != null ? rawRating : 0.0;
 
          DetailedSystemStats stats = new DetailedSystemStats(
                  totalUsers,

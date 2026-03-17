@@ -14,4 +14,4 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 
     // Custom method to calculate the average rating
     @Query("SELECT AVG(f.rating) FROM Feedback f")
-    double findAverageRating();}
+    Double findAverageRating();}

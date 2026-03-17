@@ -15,7 +15,7 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, Lo
 
     // Custom method to count orders by status
     @Query("SELECT po.status, COUNT(po) FROM PurchaseOrder po GROUP BY po.status")
-    Map<String, Long> countOrdersByStatus();
+    java.util.List<Object[]> countOrdersByStatus();
 
     // Custom method to calculate the sum of total amounts
     @Query("SELECT SUM(po.totalAmount) FROM PurchaseOrder po")
