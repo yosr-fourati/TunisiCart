@@ -1,6 +1,6 @@
 # ShopSphere 🛒
 
-A full-stack multi-seller e-commerce platform I built to practice real-world backend + frontend integration. It covers the full lifecycle of an online marketplace — buyer browsing, seller storefronts, Stripe payments, email activation, and a complete admin dashboard.
+A full-stack multi-seller e-commerce platform I built to practice real-world backend + frontend integration. It covers the full lifecycle of an online marketplace : buyer browsing, seller storefronts, Stripe payments, email activation, and a complete admin dashboard.
 
 [![Java](https://img.shields.io/badge/Java-17-orange?logo=openjdk)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.3.2-brightgreen?logo=springboot)](https://spring.io/projects/spring-boot)
@@ -15,11 +15,11 @@ A full-stack multi-seller e-commerce platform I built to practice real-world bac
 
 ShopSphere is a marketplace where three types of users interact:
 
-- **Buyers** — browse 18 product categories, add to cart, and checkout with Stripe. No account required.
-- **Sellers** — register, get approved by an admin, then manage their own product listings.
-- **Admins** — oversee everything from a 5-tab dashboard: users, sellers, orders, products, and platform stats.
+- **Buyers** : browse 18 product categories, add to cart, and checkout with Stripe. No account required.
+- **Sellers** : register, get approved by an admin, then manage their own product listings.
+- **Admins** : oversee everything from a 5-tab dashboard: users, sellers, orders, products, and platform stats.
 
-The whole point was to build something non-trivial — real JWT auth, real Stripe PaymentIntent flow, role-based access, email activation, and a proper admin panel that actually makes sense for a marketplace.
+The whole point was to build something non-trivial : real JWT auth, real Stripe PaymentIntent flow, role-based access, email activation, and a proper admin panel that actually makes sense for a marketplace.
 
 ---
 
@@ -27,18 +27,18 @@ The whole point was to build something non-trivial — real JWT auth, real Strip
 
 ```mermaid
 flowchart TD
-    subgraph Client["🌐 Angular 17 SPA  ·  localhost:4200"]
+    subgraph Client[" Angular 17 SPA  ·  localhost:4200"]
         direction TB
         Pages["Home · Products · Cart/Checkout · Auth\nSeller Dashboard · Admin Dashboard"]
-        StripeJS["💳 Stripe.js v3\nCard Element + confirmCardPayment"]
+        StripeJS[" Stripe.js v3\nCard Element + confirmCardPayment"]
         Services["Services: AuthService · CartService\nOrderService · AdminService · ProductService"]
         Pages --- Services
         Pages --- StripeJS
     end
 
-    subgraph API["⚙️ Spring Boot 3 REST API  ·  localhost:8088 / api / v1"]
+    subgraph API[" Spring Boot 3 REST API  ·  localhost:8088 / api / v1"]
         direction TB
-        Security["🔒 JWT Security Filter  ·  Spring Security 6"]
+        Security[" JWT Security Filter  ·  Spring Security 6"]
 
         subgraph Endpoints["REST Controllers"]
             Pub["/public  (no auth)\nBrowse · Search · Guest Checkout"]
@@ -56,13 +56,13 @@ flowchart TD
         Endpoints --> SvcLayer --> Repos
     end
 
-    subgraph DB["🗄️ MySQL 8  ·  ShopSphereDB"]
+    subgraph DB[" MySQL 8  ·  ShopSphereDB"]
         Tables["users · roles · items · categories\ncarts · cart_items · purchase_orders\nfeedback · activity_history · tokens"]
     end
 
-    subgraph External["☁️ External Services"]
-        StripeAPI["💳 Stripe\nPaymentIntent API"]
-        Gmail["📧 Gmail SMTP\nEmail notifications"]
+    subgraph External[" External Services"]
+        StripeAPI[" Stripe\nPaymentIntent API"]
+        Gmail[" Gmail SMTP\nEmail notifications"]
     end
 
     Client -- "HTTP · Bearer JWT" --> API
@@ -78,17 +78,16 @@ flowchart TD
 
 | | Feature | How it works |
 |-|---------|--------------|
-| 🛍️ | **Guest checkout** | Cart lives in localStorage, no login required. Stripe handles payment. |
-| 💳 | **Stripe payments** | PaymentIntent API — card data never touches my server (PCI-compliant) |
-| 🔐 | **JWT auth** | Access + refresh tokens, email activation link on register |
-| 🏪 | **Seller workflow** | Register → activate email → wait for admin approval → start selling |
-| 🛡️ | **Admin dashboard** | 5 tabs: platform stats, orders, products, seller approvals, user management |
-| 📦 | **Order tracking** | Full lifecycle: Pending → Confirmed → Shipped → Delivered → Cancelled |
-| ⭐ | **Product reviews** | Star ratings + text comments, average shown on product pages |
-| 🔎 | **Search & filter** | Filter by category, price range, and name across 18 categories |
-| 🛒 | **Cart merge** | Guest cart automatically merges into account cart on login |
-| 📧 | **Email notifications** | Activation links and order confirmations via Gmail SMTP |
-| 📄 | **Swagger UI** | Full interactive API docs at `/swagger-ui.html` |
+ | **Guest checkout** | Cart lives in localStorage, no login required. Stripe handles payment. |
+ | **Stripe payments** | PaymentIntent API : card data never touches my server (PCI-compliant) |
+ | **JWT auth** | Access + refresh tokens, email activation link on register |
+ | **Seller workflow** | Register → activate email → wait for admin approval → start selling |
+ | **Admin dashboard** | 5 tabs: platform stats, orders, products, seller approvals, user management |
+ | **Order tracking** | Full lifecycle: Pending → Confirmed → Shipped → Delivered → Cancelled |
+ | **Product reviews** | Star ratings + text comments, average shown on product pages |
+ | **Cart merge** | Guest cart automatically merges into account cart on login |
+ | **Email notifications** | Activation links and order confirmations via Gmail SMTP |
+ | **Swagger UI** | Full interactive API docs at `/swagger-ui.html` |
 
 ---
 
@@ -158,7 +157,7 @@ This starts MySQL 8 on port `3307` and MailDev (email preview UI) on port `1080`
 ./mvnw spring-boot:run
 ```
 
-API is at `http://localhost:8088/api/v1` — the database and demo data seed automatically on first run.
+API is at `http://localhost:8088/api/v1` : the database and demo data seed automatically on first run.
 
 ### 4. Add your Stripe key to the frontend
 
@@ -179,7 +178,7 @@ npm install
 npm start
 ```
 
-Open **http://localhost:4200** — you should see the ShopSphere homepage with products loaded.
+Open **http://localhost:4200** , you should see the ShopSphere homepage with products loaded.
 
 ---
 
@@ -189,9 +188,9 @@ These are auto-created on every startup:
 
 | Role | Email | Password |
 |------|-------|----------|
-| 🛡️ Admin | `admin@shopsphere.com` | `Sph3re@Adm!n#2025` |
-| 🏪 Seller | `seller@shopsphere.com` | `Seller1234!` |
-| 🛒 Buyer | `buyer@shopsphere.com` | `Buyer1234!` |
+|  Admin | `admin@shopsphere.com` | `Sph3re@Adm!n#2025` |
+|  Seller | `seller@shopsphere.com` | `Seller1234!` |
+|  Buyer | `buyer@shopsphere.com` | `Buyer1234!` |
 
 ---
 
@@ -199,9 +198,9 @@ These are auto-created on every startup:
 
 | Result | Card number |
 |--------|------------|
-| ✅ Success | `4242 4242 4242 4242` |
-| ❌ Declined | `4000 0000 0000 0002` |
-| 🔐 3D Secure | `4000 0025 0000 3155` |
+| Success | `4242 4242 4242 4242` |
+| Declined | `4000 0000 0000 0002` |
+| 3D Secure | `4000 0025 0000 3155` |
 
 Use any future expiry, any CVC, any zip code.
 
@@ -237,8 +236,6 @@ Log in as admin and go to `/admin`.
 | **Products** | Browse all listed products, delete any listing |
 | **Sellers** | Approve or reject seller applications |
 | **Users** | View all users, delete accounts (handles all FK dependencies cleanly) |
-
-> **Note on GMV:** The "Platform GMV" shown is the total sales volume across all sellers — not revenue belonging to the admin. Each seller earns from their own listings.
 
 ---
 
@@ -333,7 +330,7 @@ shopsphere-frontend/                          Angular 17 SPA
 
 ## Author
 
-**Yosr Fourati** — MS Software Engineering · Oakland University · 2026
+**Yosr Fourati** : MS Software Engineering · Oakland University · 2026
 [GitHub](https://github.com/yosr-fourati)
 
 ---
